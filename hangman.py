@@ -1,6 +1,17 @@
 import hangman_art
 
 MAX_TRIES = 6
+HANGMAN_PHOTOS = {1: hangman_art.picture1,
+                  2: hangman_art.picture2,
+                  3: hangman_art.picture3,
+                  4: hangman_art.picture4,
+                  5: hangman_art.picture5,
+                  6: hangman_art.picture6,
+                  7: hangman_art.picture7}
+
+
+def print_hangman(num_of_tries):
+    print(HANGMAN_PHOTOS[num_of_tries + 1])
 
 
 def is_valid_input(guess, old_guesses):
@@ -53,3 +64,6 @@ print("Welcome to the game Hangman\n", hangman_art.HANGMAN_ASCII_ART, "\n")
 
 # print(check_win("friends", ['m', 'p', 'j', 'i', 's', 'k']))
 # print(check_win("yes", ['d', 'g', 'e', 'i', 's', 'k', 'y']))
+
+# tries = 6
+# print_hangman(tries)
