@@ -1,5 +1,5 @@
 this
 file
 is to be
-run-over
-by a different file's contents
+copied
+into another file
