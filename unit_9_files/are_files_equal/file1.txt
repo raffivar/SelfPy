@@ -1,0 +1,5 @@
+this
+file
+is to be
+compared
+to another file
