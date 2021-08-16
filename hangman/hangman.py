@@ -1,3 +1,5 @@
+import os
+
 import hangman_art
 
 MAX_TRIES = 6
@@ -63,6 +65,8 @@ def check_win(secret_word, old_letters_guessed):
 def main():
     print("Welcome to the game Hangman\n", hangman_art.HANGMAN_ASCII_ART, "\n")
     file_path = input("Please supply file path: ")
+    while not os.path.isfile(file_path):
+        file_path = input("File does not exist, try again: ")
     index = int(input("Please supply index: "))
     secret_word = choose_word(file_path, index)[1]
 

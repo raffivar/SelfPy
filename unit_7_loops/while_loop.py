@@ -1,8 +1,10 @@
 def squared_numbers(start, stop):
+    my_list = []
     while start <= stop:
-        print(start ** 2)
+        my_list.append(start ** 2)
         start += 1
+    return my_list
 
 
-squared_numbers(4, 8)
-squared_numbers(-3, 3)
+print(squared_numbers(4, 8))
+print(squared_numbers(-3, 3))
