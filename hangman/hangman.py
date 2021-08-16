@@ -1,5 +1,3 @@
-import random
-
 import hangman_art
 
 MAX_TRIES = 6
