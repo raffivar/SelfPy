@@ -64,12 +64,13 @@ def check_win(secret_word, old_letters_guessed):
 
 def main():
     print("Welcome to the game Hangman\n", hangman_art.HANGMAN_ASCII_ART, "\n")
-    index = random.randint(0, 500)
-    secret_word = choose_word('words.txt', index)[1]
+    file_path = input("Please supply file path: ")
+    index = int(input("Please supply index: "))
+    secret_word = choose_word(file_path, index)[1]
+
     old_letters_guessed = []
     tries = 0
     print_hangman(tries)
-
     while not check_win(secret_word, old_letters_guessed) and tries < MAX_TRIES:
         show_hidden_word(secret_word, old_letters_guessed)
         letter_guessed = input("Enter your guess: ")
@@ -82,9 +83,9 @@ def main():
             print_hangman(tries)
 
     if check_win(secret_word, old_letters_guessed):
-        print("YOU WON! :D")
+        print("WIN!")
     else:
-        print("YOU LOST! T_T")
+        print("LOSE")
 
     print("The word was: '{}'".format(secret_word))
 
