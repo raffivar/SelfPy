@@ -14,6 +14,21 @@ def print_hangman(num_of_tries):
     print(HANGMAN_PHOTOS[num_of_tries + 1])
 
 
+def choose_word(file_path, index):
+    words = []
+    word_in_index = ""
+    with open(file_path, "r") as file:
+        words_from_file = file.read().split(' ')
+        index = index % len(words_from_file)
+    for i in range(0, len(words_from_file)):
+        word = words_from_file[i]
+        if word not in words:
+            words.append(word)
+        if i == index - 1:
+            word_in_index = word
+    return len(words), word_in_index
+
+
 def is_valid_input(guess, old_guesses):
     return len(guess) == 1 and guess.isalpha() and guess.lower() not in old_guesses
 
@@ -67,3 +82,6 @@ print("Welcome to the game Hangman\n", hangman_art.HANGMAN_ASCII_ART, "\n")
 
 # tries = 6
 # print_hangman(tries)
+
+# print(choose_word('words.txt', 3))
+# print(choose_word('words.txt', 15))
