@@ -9,7 +9,7 @@ HANGMAN_ASCII_ART = """
                      |___/"""
 
 picture1 = """   
-x-------x
+    x-------x
 """
 
 picture2 = """   
