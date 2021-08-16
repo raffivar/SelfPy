@@ -1,3 +1,5 @@
+import random
+
 import hangman_art
 
 MAX_TRIES = 6
@@ -29,8 +31,18 @@ def choose_word(file_path, index):
     return len(words), word_in_index
 
 
-def is_valid_input(guess, old_guesses):
-    return len(guess) == 1 and guess.isalpha() and guess.lower() not in old_guesses
+def show_hidden_word(secret_word, old_letters_guessed):
+    result = ""
+    for char in secret_word:
+        if char in old_letters_guessed:
+            result += char + ' '
+        else:
+            result += '_ '
+    print(result, '\n')
+
+
+def is_valid_input(letter_guessed, old_letters_guessed):
+    return len(letter_guessed) == 1 and letter_guessed.isalpha() and letter_guessed.lower() not in old_letters_guessed
 
 
 def try_update_letter_guessed(letter_guessed, old_letters_guessed):
@@ -43,16 +55,6 @@ def try_update_letter_guessed(letter_guessed, old_letters_guessed):
         return True
 
 
-def show_hidden_word(secret_word, old_letters_guessed):
-    result = ""
-    for char in secret_word:
-        if char in old_letters_guessed:
-            result += char + ' '
-        else:
-            result += '_ '
-    return result
-
-
 def check_win(secret_word, old_letters_guessed):
     for char in secret_word:
         if char not in old_letters_guessed:
@@ -60,28 +62,27 @@ def check_win(secret_word, old_letters_guessed):
     return True
 
 
-print("Welcome to the game Hangman\n", hangman_art.HANGMAN_ASCII_ART, "\n")
+def main():
+    print("Welcome to the game Hangman\n", hangman_art.HANGMAN_ASCII_ART, "\n")
+    index = random.randint(0, 500)
+    secret_word = choose_word('words.txt', index)[1]
+    old_letters_guessed = []
+    tries = 0
 
-# old_letters = ['a', 'p', 'c', 'f']
-# print(is_valid_input('C', old_letters))
-# print(is_valid_input('ep', old_letters))
-# print(is_valid_input('$', old_letters))
-# print(is_valid_input('s', old_letters))
-# print()
-# print(try_update_letter_guessed('A', old_letters), "\n")
-# print(try_update_letter_guessed('s', old_letters), "\n")
-# print(old_letters, "\n")
-# print(try_update_letter_guessed('$', old_letters), "\n")
-# print(try_update_letter_guessed('d', old_letters), "\n")
-# print(old_letters)
+    while not check_win(secret_word, old_letters_guessed) and tries < MAX_TRIES:
+        print_hangman(tries)
+        show_hidden_word(secret_word, old_letters_guessed)
+        letter_guessed = input("Enter your guess: ")
+        try_update_letter_guessed(letter_guessed, old_letters_guessed)
+        tries += 1
 
-# print(show_hidden_word("mammals", ['s', 'p', 'j', 'i', 'm', 'k']))
+    if check_win(secret_word, old_letters_guessed):
+        print("YOU WON! :D")
+    else:
+        print("YOU LOST! T_T")
 
-# print(check_win("friends", ['m', 'p', 'j', 'i', 's', 'k']))
-# print(check_win("yes", ['d', 'g', 'e', 'i', 's', 'k', 'y']))
+    print("The word was: '{}'".format(secret_word))
 
-# tries = 6
-# print_hangman(tries)
 
-# print(choose_word('words.txt', 3))
-# print(choose_word('words.txt', 15))
+if __name__ == "__main__":
+    main()
