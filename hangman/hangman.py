@@ -51,7 +51,7 @@ def try_update_letter_guessed(letter_guessed, old_letters_guessed):
         print(' -> '.join(old_letters_guessed))
         return False
     else:
-        old_letters_guessed.append(letter_guessed)
+        old_letters_guessed.append(letter_guessed.lower())
         return True
 
 
@@ -73,8 +73,12 @@ def main():
         print_hangman(tries)
         show_hidden_word(secret_word, old_letters_guessed)
         letter_guessed = input("Enter your guess: ")
-        try_update_letter_guessed(letter_guessed, old_letters_guessed)
-        tries += 1
+        is_valid_guess = try_update_letter_guessed(letter_guessed, old_letters_guessed)
+        if not is_valid_guess:
+            continue
+        if letter_guessed not in secret_word:
+            print(':(')
+            tries += 1
 
     if check_win(secret_word, old_letters_guessed):
         print("YOU WON! :D")
