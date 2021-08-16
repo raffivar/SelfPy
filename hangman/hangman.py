@@ -68,9 +68,9 @@ def main():
     secret_word = choose_word('words.txt', index)[1]
     old_letters_guessed = []
     tries = 0
+    print_hangman(tries)
 
     while not check_win(secret_word, old_letters_guessed) and tries < MAX_TRIES:
-        print_hangman(tries)
         show_hidden_word(secret_word, old_letters_guessed)
         letter_guessed = input("Enter your guess: ")
         is_valid_guess = try_update_letter_guessed(letter_guessed, old_letters_guessed)
@@ -79,6 +79,7 @@ def main():
         if letter_guessed not in secret_word:
             print(':(')
             tries += 1
+            print_hangman(tries)
 
     if check_win(secret_word, old_letters_guessed):
         print("YOU WON! :D")
