@@ -64,17 +64,22 @@ def check_win(secret_word, old_letters_guessed):
 
 def main():
     print("Welcome to the game Hangman\n", hangman_art.HANGMAN_ASCII_ART, "\n")
+
     file_path = input("Please supply file path: ")
     while not os.path.isfile(file_path):
-        file_path = input("File does not exist, try again: ")
-    index = int(input("Please supply index: "))
-    secret_word = choose_word(file_path, index)[1]
+        file_path = input("File does not exist, please try again: ")
 
+    index = input("Please supply index: ")
+    while not index.isnumeric() or int(index) < 1:
+        index = input("Invalid index, please try again: ")
+    index = int(index)
+
+    secret_word = choose_word(file_path, index)[1]
     old_letters_guessed = []
     tries = 0
+
     print_hangman(tries)
     show_hidden_word(secret_word, old_letters_guessed)
-
     while not check_win(secret_word, old_letters_guessed) and tries < MAX_TRIES:
         letter_guessed = input("Enter your guess: ")
         is_valid_guess = try_update_letter_guessed(letter_guessed, old_letters_guessed)
